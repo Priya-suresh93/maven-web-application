@@ -90,12 +90,12 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Releases Nexus Repository</name>
-	      <url>http://13.232.180.192:8081/repository/maven-web-appli-rel//</url>
+	      <url>http://13.126.189.112:8081/repository/maven-web-appli-rel/</url>
 	    </repository>
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://13.232.180.192:8081/repository/maven-web-appln-snap/</url>
+	      <url>http://13.126.189.112:8081/repository/maven-web-appln-snap/</url>
 	    </snapshotRepository>
 	</distributionManagement>
 	
