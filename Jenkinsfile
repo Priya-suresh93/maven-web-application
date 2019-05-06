@@ -8,4 +8,8 @@ node{
     {
         sh "${MavenHome}/bin/mvn clean package"
     }
+    stage('ExecuteSonarQube')
+    {
+            sh "${MavenHome}/bin/mvn sonar:sonar"
+    }
 }
