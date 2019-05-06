@@ -1,4 +1,5 @@
-node{
+node('slaves')
+{
     def MavenHome=tool name:'maven-3.6.1', type:'maven'
     stage('checkoutcode')
     {
