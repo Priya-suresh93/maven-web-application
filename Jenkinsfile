@@ -18,4 +18,8 @@ node{
     sh 'scp -o StrictHostKeyChecking=no $WORKSPACE/target/*.war ec2-user@13.233.71.198:/opt/apache-tomcat-9.0.17/webapps/'
        }
 }
+    stage('emailNotification')
+    {
+    emailext body: '', subject: 'pipeline script', to: 'bhavanilukka@gmail.com,pripriya248@gmail.com'
+    }
 }
