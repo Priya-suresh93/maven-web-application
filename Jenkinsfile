@@ -1,4 +1,4 @@
-node{
+node('mvn-pipeline-slave1'){
     def MavenHome=tool name:'maven-3.6.1', type:'maven'
     stage('checkoutcode')
     {
