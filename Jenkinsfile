@@ -12,8 +12,10 @@ node{
     {
             sh "${MavenHome}/bin/mvn sonar:sonar"
     }
-    stage('DeployIntoTomcat')
+    stage('deployintotomcat')
     {
-    scp $WORKSPACE/target/*.war ec2-user@13.233.71.198:/opt/apache-tomcat-9.0.17/webapps
-    }
+    sshagent(['Tomcat-Dev']) {
+    sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@13.233.71.198:/opt/apache-tomcat-9.0.17/webapps/'
+        }
+}
 }
