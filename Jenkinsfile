@@ -1,4 +1,4 @@
-node('slaves')
+node
 {
     def MavenHome=tool name:'maven-3.6.1', type:'maven'
     stage('checkoutcode')
@@ -9,16 +9,7 @@ node('slaves')
     {
         sh "${MavenHome}/bin/mvn clean package"
     }
-    stage('ExecuteSonarQube')
-    {
-            sh "${MavenHome}/bin/mvn sonar:sonar"
-    }
-    stage('deployintotomcat')
-    {
-    sshagent(['Tomcat-Dev']) {
-    sh 'scp -o StrictHostKeyChecking=no $WORKSPACE/target/*.war ec2-user@13.233.71.198:/opt/apache-tomcat-9.0.17/webapps/'
-       }
-}
+    
     stage('emailNotification')
     {
     emailext body: '', subject: 'pipeline script', to: 'bhavanilukka@gmail.com,pripriya248@gmail.com'
