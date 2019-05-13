@@ -9,8 +9,18 @@ node
     {
         sh "${MavenHome}/bin/mvn clean package"
     }
-    
-    stage('emailNotification')
+    stage('build docker image')
+    {
+      sh "docker build -t priya93/mavenimg1 ."
+    }
+    stage('push docker image')
+    {
+        withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
+            sh "docker login -u priya93 -p ${Docker_Hub_Pwd}"
+          }
+        sh "docker push priya93/mavenimg1"
+    }
+   stage('emailNotification')
     {
     emailext body: '', subject: 'pipeline script', to: 'bhavanilukka@gmail.com,pripriya248@gmail.com'
     }
