@@ -20,6 +20,15 @@ node
     }
         sh "docker push priya93/mavenimg1"
     }
+    stage('deploy into another server')
+    {
+    sshagent(['node1_server_auth']) {
+        def DockerRun = "docker run -d -p 8080:8080 --name mavencontainer1 priya93/mavenimg1"
+        sshagent(['node1_server_auth']) {
+          sh "ssh ubuntu@13.126.247.57"
+}
+    }
+    }
     stage('emailNotification')
     {
     emailext body: '', subject: 'pipeline script', to: 'bhavanilukka@gmail.com,pripriya248@gmail.com'
