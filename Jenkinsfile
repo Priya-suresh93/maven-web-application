@@ -24,8 +24,6 @@ node
     {
         def DockerRun = "docker run -d -p 8080:8080 --name mavencontainer1 priya93/mavenimg1"
         sshagent(['node1_server_auth']) {
-         sh "ssh -o StrictHostKeyChecking=no ubuntu@1172.31.3.22 docker stop mavencontainer1 || true"
-         sh "ssh ubuntu@172.31.3.22 docker rm mavencontainer1 || true"
          sh "ssh ubuntu@172.31.3.22 docker rmi -f ${docker images -q} || true"
          sh "ssh ubuntu@172.31.3.22 ${DockerRun}"
         }
