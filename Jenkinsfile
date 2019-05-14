@@ -30,7 +30,6 @@ node
           sh "ssh ubuntu@172.31.3.22 ${DockerRun}"
 }
     }
-    }
     stage('emailNotification')
     {
     emailext body: '', subject: 'pipeline script', to: 'bhavanilukka@gmail.com,pripriya248@gmail.com'
