@@ -7,7 +7,7 @@ node
     }
     stage('build')
     {
-        sh "${MavenHome}/bin/mvn clean package -D maven.skip.test=true"
+        sh "${MavenHome}/bin/mvn clean package -D maven.test.skip=true"
     }
     stage('build docker image')
     {
