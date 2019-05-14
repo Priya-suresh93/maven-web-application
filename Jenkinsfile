@@ -15,14 +15,12 @@ node
     }
     stage('push docker image')
     {
-       withCredentials([string(credentialsId: 'Docker-hub-pwd', variable: 'Docker-hub-pwd')]) {
-     
-            sh "docker login -u priya93 -p ${Docker-hub-pwd}"
-          }
+       withCredentials([string(credentialsId: 'docker_pwd', variable: 'docker_pwd')]) {
+        sh "docker login -u priya93 -p ${docker_pwd}"
+    }
         sh "docker push priya93/mavenimg1"
     }
-    
-   stage('emailNotification')
+    stage('emailNotification')
     {
     emailext body: '', subject: 'pipeline script', to: 'bhavanilukka@gmail.com,pripriya248@gmail.com'
     }
