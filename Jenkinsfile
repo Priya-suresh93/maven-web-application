@@ -7,7 +7,7 @@ node
     }
     stage('build')
     {
-        sh "${MavenHome}/bin/mvn clean package"
+        sh "${MavenHome}/bin/mvn clean package -D maven.skip.test=true"
     }
     stage('build docker image')
     {
@@ -20,6 +20,7 @@ node
           }
         sh "docker push priya93/mavenimg1"
     }
+    
    stage('emailNotification')
     {
     emailext body: '', subject: 'pipeline script', to: 'bhavanilukka@gmail.com,pripriya248@gmail.com'
