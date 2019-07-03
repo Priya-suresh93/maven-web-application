@@ -15,9 +15,9 @@ node
     }
     stage('push docker image')
     {
-      withCredentials([string(credentialsId: 'docker-pass', variable: 'docker-password')]){
-        sh "docker login -u priya93 -p ${docker-password}"
-    }
+      withCredentials([string(credentialsId: 'Docker_password', variable: 'Docker_password')]) {
+        sh "docker login -u priya93 -p ${Docker_password}"
+}
         sh "docker push priya93/mavenimgnew"
     }
     stage('deploy into another server')
