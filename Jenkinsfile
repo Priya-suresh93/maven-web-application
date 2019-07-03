@@ -11,14 +11,14 @@ node
     }
     stage('build docker image')
     {
-      sh "docker build -t priya93/mavenimg1 ."
+      sh "docker build -t priya93/mavenimgnew ."
     }
     stage('push docker image')
     {
-       withCredentials([string(credentialsId: 'docker_pwd', variable: 'docker_pwd')]) {
-        sh "docker login -u priya93 -p ${docker_pwd}"
+      withCredentials([string(credentialsId: 'docker-pass', variable: 'docker-password')]){
+        sh "docker login -u priya93 -p ${docker-password}"
     }
-        sh "docker push priya93/mavenimg1"
+        sh "docker push priya93/mavenimgnew"
     }
     stage('deploy into another server')
     {
