@@ -12,7 +12,7 @@ node
     stage('build docker image')
     {
       sh "docker build -t priya93/maventest1 ."
-      sh "docker build -t priya93/maventest2"  
+      sh "docker build -t priya93/maventest2 . -f Dockerfile2"  
     }
     stage('push docker image')
     {
@@ -22,18 +22,19 @@ node
         sh "docker push priya93/maventest1"
         sh "docker push priya93/maventest2"
     }
-    stage('docker swarm deploy')
+    stage('Copy Docker-compose in slave')
     {
-    
+    sshagent(['Swarm-deploy']) {
+        sh "scp ${WORKSPACE}/docker-compose.yaml ubuntu@172.31.40.167:/home/ubuntu"
     }
-    stage('deploy into another server')
+    }
+    stage('Deleting existing images')
     {
-        def DockerRun = "docker run -d -p 8080:8080 --name mavencontainer1 priya93/mavenimg1"
-        sshagent(['ssh_agent1']) {
-         sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.7 docker stop mavencontainer1 || true'
-         sh 'ssh ubuntu@172.31.35.7 docker rm mavencontainer1 || true'
-         sh 'ssh ubuntu@172.31.35.7 docker rmi -f $(docker images -q) || true'
-         sh "ssh ubuntu@172.31.35.7 ${DockerRun}"
+    sh "docker rmi -f $(docker images -q)"
+    sh "docker rm -f $(docker ps -aq)"
+    }
+    stage('deploy into swarm manager')
+    {
+        sh "docker-compose up"
        }
-    }
 }
