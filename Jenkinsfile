@@ -35,6 +35,6 @@ node
     }
     stage('deploy into swarm manager')
     {
-        sh "docker-compose up"
+        sh "docker service create demoservice -d -p 8080:8080 -replicas 1 priya93/maventest1"
        }
 }
