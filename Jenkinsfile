@@ -22,11 +22,11 @@ node
         sh "docker push priya93/maventest1"
         sh "docker push priya93/maventest2"
     }
-    stage('Copy Docker-compose in slave')
+    stage('Copy Docker-compose in swarm')
     {
-    sshagent(['Swarm-deploy']) {
-        sh "scp ${WORKSPACE}/docker-compose.yaml ubuntu@172.31.40.167:/home/ubuntu"
-    }
+sshagent(['swarm-new']) {
+    sh "scp ${WORKSPACE}/docker-compose.yaml ubuntu@172.31.40.167:/home/ubuntu"
+    }        
     }
     stage('Deleting existing images')
     {
