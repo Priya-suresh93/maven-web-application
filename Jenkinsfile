@@ -30,8 +30,8 @@ node
     }
     stage('Deleting existing images')
     {
-    sh "docker rmi -f $(docker images -q)"
-    sh "docker rm -f $(docker ps -aq)"
+        sh "docker rmi -f ${docker images -q}"
+        sh "docker rm -f ${docker ps -aq}"
     }
     stage('deploy into swarm manager')
     {
