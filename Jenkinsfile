@@ -37,7 +37,7 @@ sshagent(['swarm-new']) {
      }
     stage('deploy into swarm manager')
     {
-        sh "ssh -T -o StrictHostKeyChecking=no ubuntu@172.31.40.167"
+        sh "ssh -t -t -o StrictHostKeyChecking=no ubuntu@172.31.40.167"
         sh "docker service create demoservice -d -p 8080:8080 -replicas 1 priya93/maventest1"
        }
 }
