@@ -11,14 +11,20 @@ node
     }
     stage('build docker image')
     {
-      sh "docker build -t priya93/mavenimgnew ."
+      sh "docker build -t priya93/maventest1 ."
+      sh "docker build -t priya93/maventest2"  
     }
     stage('push docker image')
     {
       withCredentials([string(credentialsId: 'Docker_password', variable: 'Docker_password')]) {
         sh "docker login -u priya93 -p ${Docker_password}"
 }
-        sh "docker push priya93/mavenimgnew"
+        sh "docker push priya93/maventest1"
+        sh "docker push priya93/maventest2"
+    }
+    stage('docker swarm deploy')
+    {
+    
     }
     stage('deploy into another server')
     {
