@@ -10,9 +10,9 @@ services:
         depends_on:
          - tomcat2
         deploy:
-         replicas: 2
+         replicas: 1
          update_config:
-         parallelism: 2
+         parallelism: 1
          delay: 10s
          restart_policy:
          condition: on-failure 
@@ -29,6 +29,6 @@ services:
     
 volumes:
   data:
-    external: true
+    external: false
   data-bkp:
-    external: true
+    external: false
