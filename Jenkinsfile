@@ -25,6 +25,7 @@ node
     stage('Copy Docker-compose in swarm')
     {
 sshagent(['swarm-new']) {
+    sh 'ssh -o StrictHostKeyChecking=no 
     sh "scp ${WORKSPACE}/docker-compose.yaml ubuntu@172.31.40.167:/home/ubuntu"
     }        
     }
