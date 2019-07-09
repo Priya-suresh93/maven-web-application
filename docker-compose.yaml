@@ -1,14 +1,14 @@
 version: '3.1'
 services: 
-    springboot:
-        image: dockerhandson/spring-boot-mongo:latest
+    tomcat1:
+        image: priya93/maventest1
         restart: always
-        container_name: springboot
+        container_name: container1
         ports:
          - 8080:8080
          working_dir: /opt/app
         depends_on:
-         - mongo
+         - tomcat2
         deploy:
          replicas: 2
          update_config:
@@ -17,9 +17,9 @@ services:
          restart_policy:
          condition: on-failure 
         
-    mongo:
-        image: mongo
-        container_name: springboot-mongo
+    tomcat2:
+        image: priya93/maventest2
+        container_name: container2
 #    ports:  # for demo/debug purpose only
 #      - 27018:27017
         volumes:
