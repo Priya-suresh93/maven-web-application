@@ -31,9 +31,9 @@ sshagent(['swarm-new']) {
     }
     stage('Deleting existing images')
     {
-        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.167 docker stop container1 || true'
-         sh 'ssh ubuntu@172.31.35.7 docker rm container1 || true'
-         sh 'ssh ubuntu@172.31.35.7 docker rmi -f $(docker images -q) || true'
+        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.167 docker stop container1 || true"
+         sh 'ssh ubuntu@172.31.40.167 docker rm container1 || true'
+        sh 'ssh ubuntu@172.31.40.167 docker rmi -f $(docker images -q) || true'
      }
     stage('deploy into swarm manager')
     {
