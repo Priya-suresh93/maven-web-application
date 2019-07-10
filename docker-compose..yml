@@ -1,0 +1,35 @@
+version: '3.1'
+  
+services:
+  springboot:
+    image: spring_img
+    restart: always
+    container_name: springboot
+    ports:
+      - 8099:8099
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  mongo:
+    image: mongo_img
+    container_name: mongo
+#    ports:  # for demo/debug purpose only
+#      - 27018:27017
+    volumes:
+      - data:/data/db
+      - data-bkp:/data/bkp
+    restart: always
+
+volumes:
+    data:
+    data-bkp:
+networks:
+  default:
