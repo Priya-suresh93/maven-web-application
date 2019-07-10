@@ -26,7 +26,7 @@ node
     {
         sshagent(credentials: ['Swarm_manager'], ignoreMissing: true) {
                 sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.47.200"
-                sh "scp ${WORKSPACE}/docker-compose.yaml ubuntu@172.31.47.200:/home/ubuntu"
+                sh "scp ${WORKSPACE}/docker-compose.yml ubuntu@172.31.47.200:/home/ubuntu"
         }       
     }
    // stage('Deleting existing images')
