@@ -39,7 +39,7 @@ node
     {
         sshagent(credentials: ['Swarm_manager'], ignoreMissing: true) {
         sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.47.200"
-        sh ""
+        sh "docker stack deploy --compose-file docker-compose.yaml springmongo"
        }
 }
 }
