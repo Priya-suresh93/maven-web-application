@@ -18,7 +18,7 @@ node
     {
       withCredentials([string(credentialsId: 'Docker_password', variable: 'Docker_password')]) {
         sh "docker login -u priya93 -p ${Docker_password}"
-}
+    }
         sh "docker push priya93/spring_img"
         sh "docker push priya93/mongo_img"
     }
