@@ -11,16 +11,16 @@ node
     }
     stage('build docker image')
     {
-      sh "docker build -t priya93/maventest1 ."
-      sh "docker build -t priya93/maventest2 . -f Dockerfile2"  
+      sh "docker build -t priya93/tomcat_image ."
+      sh "docker build -t priya93/wildfly_image . -f Dockerfile2"  
     }
     stage('push docker image')
     {
       withCredentials([string(credentialsId: 'Docker_password', variable: 'Docker_password')]) {
         sh "docker login -u priya93 -p ${Docker_password}"
 }
-        sh "docker push priya93/maventest1"
-        sh "docker push priya93/maventest2"
+        sh "docker push priya93/tomcat_image"
+        sh "docker push priya93/wildfly_image"
     }
     stage('Copy Docker-compose in swarm')
     {
@@ -35,7 +35,7 @@ node
    //      sh 'ssh ubuntu@172.31.40.167 docker rm container1 || true'
    //     sh 'ssh ubuntu@172.31.40.167 docker rmi -f $(docker images -q) || true'
     // } 
-    stage('deploy into swarm manager')
+    stage('docker-compose-up')
     {
         sshagent(credentials: ['Swarm_manager'], ignoreMissing: true) {
         sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.47.200 docker-compose up"
