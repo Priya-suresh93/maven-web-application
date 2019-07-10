@@ -37,7 +37,9 @@ node
     // } 
     stage('deploy into swarm manager')
     {
-        sh "ssh ubuntu@172.31.47.200"
-        sh "docker service create demoservice -d -p 8080:8080 -replicas 1 priya93/maventest1"
+        sshagent(credentials: ['Swarm_manager'], ignoreMissing: true) {
+        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.47.200"
+        sh ""
        }
+}
 }
