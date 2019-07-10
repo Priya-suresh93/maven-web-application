@@ -26,5 +26,5 @@ volumes:
     customdata:
     customvolume:
 networks:
-  tomnetwork:
+  default:
   wildnetwork:
