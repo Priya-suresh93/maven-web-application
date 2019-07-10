@@ -38,9 +38,9 @@ node
     stage('deploy into swarm manager')
     {
         sshagent(credentials: ['Swarm_manager'], ignoreMissing: true) {
-        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.47.200 "
+        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.47.200 docker-compose up"
          //  sh "docker service create --name nginx --mode global --constraint 'node.role==worker' nginx"
-           sh "docker stack deploy --compose-file docker-compose.yml nginx"
+           //sh "docker stack deploy --compose-file docker-compose.yml nginx"
        }
 }
 }
