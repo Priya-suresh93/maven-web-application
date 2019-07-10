@@ -3,20 +3,13 @@ version: '3.1'
 services:
   springboot:
     image: priya93/maventest1
-    restart: always
     container_name: springboot
     ports:
       - 8182:8080
     working_dir: /opt/app
     depends_on:
       - mongo
-    deploy:
-      replicas: 2
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
+   
 
   mongo:
     image: priya93/maventest2
