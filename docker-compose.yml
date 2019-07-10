@@ -26,5 +26,3 @@ volumes:
     data-bkp:
 networks:
   default:
-    external:
-      name: customoverlay
