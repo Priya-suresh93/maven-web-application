@@ -1,28 +1,30 @@
 version: '3.1'
   
 services:
-  springboot:
-    image: priya93/maventest1
-    container_name: springboot
+  tomcat:
+    image: priya93/tomcat_image
+    container_name: tomcat_cont
     ports:
       - 8182:8080
-    working_dir: /opt/app
-    depends_on:
-      - mongo
-   
-
-  mongo:
-    image: priya93/maventest2
-    container_name: mongo
-#    ports:  # for demo/debug purpose only
-#      - 27018:27017
     volumes:
-      - data:/data/db
-      - data-bkp:/data/bkp
-    restart: always
+        - customdata:/usr/local/tomcat/webapps
+    netwoks: 
+        - tomnetwork
+
+  wildfly:
+    image: priya93/wildfly_image
+    container_name: wildfly_cont
+    ports:  
+      - 8089:8080
+      - 9990:9990
+    volumes:
+      - customvolume:/opt/jboss/wildfly/standalone/deployments
+    netwoks: 
+        - wildnetwork
 
 volumes:
-    data:
-    data-bkp:
+    customdata:
+    customvolume:
 networks:
-  default:
+  tomnetwork:
+  wildnetwork:
