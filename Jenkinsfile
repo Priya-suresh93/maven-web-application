@@ -24,20 +24,20 @@ node
     }
     stage('Copy Docker-compose in swarm')
     {
-sshagent(['swarm-new']) {
-    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.167"
-    sh "scp ${WORKSPACE}/docker-compose.yaml ubuntu@172.31.40.167:/home/ubuntu"
-    }        
+        sshagent(credentials: ['Swarm_manager'], ignoreMissing: true) {
+                sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.47.200"
+                sh "scp ${WORKSPACE}/docker-compose.yaml ubuntu@172.31.47.200:/home/ubuntu"
+        }       
     }
-    stage('Deleting existing images')
-    {
-        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.167 docker stop container1 || true"
-         sh 'ssh ubuntu@172.31.40.167 docker rm container1 || true'
-        sh 'ssh ubuntu@172.31.40.167 docker rmi -f $(docker images -q) || true'
-     }
+   // stage('Deleting existing images')
+ //   {
+   //     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.167 docker stop container1 || true"
+   //      sh 'ssh ubuntu@172.31.40.167 docker rm container1 || true'
+   //     sh 'ssh ubuntu@172.31.40.167 docker rmi -f $(docker images -q) || true'
+    // } 
     stage('deploy into swarm manager')
     {
-        sh "ssh -t -t ubuntu@172.31.40.167"
+        sh "ssh ubuntu@172.31.47.200"
         sh "docker service create demoservice -d -p 8080:8080 -replicas 1 priya93/maventest1"
        }
 }
