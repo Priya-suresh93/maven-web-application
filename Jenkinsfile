@@ -27,8 +27,11 @@ node
     sshagent(['swarm-manager']) {
     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.36.57"
                sh "scp ${WORKSPACE}/docker-compose.yml ubuntu@172.31.36.57:/home/ubuntu"
+        withCredentials([string(credentialsId: 'Docker_password', variable: 'Docker_password')]) {
+        sh "docker login -u priya93 -p ${Docker_password}"
         sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.36.57 docker stack deploy --compose-file docker-compose.yml spring"
-        }       
+        }  
+    }
 }
    // stage('Deleting existing images')
  //   {
