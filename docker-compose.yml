@@ -6,15 +6,12 @@ services:
     restart: always
     container_name: springboot
     ports:
-      - 8099:8099
+      - 8099:8080
     working_dir: /opt/app
     depends_on:
       - mongo
     deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
+      replicas: 3
       restart_policy:
         condition: on-failure
 
