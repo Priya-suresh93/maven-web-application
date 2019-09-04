@@ -27,6 +27,7 @@ node
         withCredentials([string(credentialsId: 'Docker_password', variable: 'Docker_password')]) {
         sh "docker login -u priya93 -p ${Docker_password}"
             sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.36.57 docker service create --name tomcatservice2 -d -p 8090:8080 --replicas 2 priya93/tomcatimg"
+                  sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.36.57 docker service scale tomcatservice2=4"  
         }  
     }
 }
