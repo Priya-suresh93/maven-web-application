@@ -27,7 +27,7 @@ node
     sshagent(['swarm-manager']) {
     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.36.57"
                sh "scp ${WORKSPACE}/docker-compose.yml ubuntu@172.31.36.57:/home/ubuntu"
-        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.36.57 docker-compose up"
+        sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.36.57 docker stack deploy --compose-file docker-compose.yml spring"
         }       
 }
    // stage('Deleting existing images')
