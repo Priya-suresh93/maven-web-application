@@ -27,6 +27,7 @@ node
     sshagent(['swarm-manager']) {
     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.36.57"
                sh "scp ${WORKSPACE}/docker-compose.yml ubuntu@172.31.36.57:/home/ubuntu"
+        sh "docker-compose up"
         }       
 }
    // stage('Deleting existing images')
@@ -37,9 +38,5 @@ node
     // } 
     //stage('swarm deploy')
     ///{
-//sshagent(credentials: ['Swarm_manager'], ignoreMissing: true) {
-      //  sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.47.200"
-         //  sh "docker service create --name nginx --mode global --constraint 'node.role==worker' nginx"
-        //  sh "docker stack deploy --compose-file docker-compose.yml nginx"
-     //  }
+
 }
