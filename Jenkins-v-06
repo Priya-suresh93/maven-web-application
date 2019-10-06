@@ -1,0 +1,38 @@
+node()
+{
+    
+    def MavenHome= tool name: 'Maven3.6.1', type:'maven'
+
+		properties([
+	    buildDiscarder(logRotator(numToKeepStr: '3')),
+	    pipelineTriggers([
+	        pollSCM('* * * * *')
+	    ])
+    ])
+    
+    stage('CodeCheckOut'){
+        git branch: 'master' , credentialsId: 'ac1537a2-5332-4b98-9460-d49751b6ba59', url: 'https://github.com/Priya-suresh93/maven-web-application.git'
+    }
+    
+    stage('Build'){
+	sh "${MavenHome}/bin/mvn clean package"
+    }
+    
+    stage('ExecuteSonarQubeReport'){
+    sh "${MavenHome}/bin/mvn sonar:sonar"
+    }
+    
+    stage('Uploadartifact'){
+    sh "${MavenHome}/bin/mvn deploy"
+    }
+    
+    stage('DeployApplication'){
+        sshagent(['fc517ef0-32cd-4b62-8edc-648aa87ac4ea']) {
+    // some block
+    sh 'scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.235.91.64:/opt/apache-tomcat-9.0.26/webapps/maven-web-application.war'
+
+    }
+        
+    }
+       
+}
